@@ -441,6 +441,12 @@ class Userauth {
 		$this->denied_set = true;
 	}
 
+    function enviar($correo,$usuario,$laboratorio,$horario,$materia,$fecha){
+		
+		enviarCorreo($correo,$usuario,$laboratorio,$horario,$materia,$fecha);
+
+	}
+
 
 
 
