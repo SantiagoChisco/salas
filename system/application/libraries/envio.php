@@ -55,8 +55,8 @@ function enviarCorreo($correoM,$usuario,$laboratorio,$horario,$materia,$fecha){
   $mail->Port = 25;
   //$mail->SMTPDebug = 1;
   $mail->isHTML(true);
-  $mail->Username = "david.chisco@mail.escuelaing.edu.co";
-  $mail->Password = "Uchiha2421";
+  $mail->Username = "correo";
+  $mail->Password = "pass";
   $mail->From = "david.chisco@mail.escuelaing.edu.co";
   $mail->FromName = utf8_decode("Laboratorio De Informatica");
   $mail->Timeout=30;
