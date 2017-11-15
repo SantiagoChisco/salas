@@ -44,7 +44,7 @@
       return $valido;
 
  }
-function enviarCorreo($correoM,$usuario,$laboratorio,$horario,$materia,$fecha){
+function enviarCorreo($correoM,$usuario,$laboratorio,$horario,$materia,$fecha,$observaciones){
   
   $mail = new PHPMailer();
   $mail->PluginDir = "lib/";
@@ -72,7 +72,8 @@ function enviarCorreo($correoM,$usuario,$laboratorio,$horario,$materia,$fecha){
       </head>
       <body style='background-attachment: fixed;background-color: white;background-position: center;background-repeat: no-repeat;background-size: 100% 100%;color: #094BA5;font-family: Myriad Pro, Verdana, Sans-serif;font-weight: bold;height: auto;margin: 0;padding: 2%;width: auto; max-width: 70%;font-size: 1em'>
        <div style='display:inline-block; width:100%; margin: 0 auto;'>
-       <div style='margin-top:2%;'>     
+       <div style='margin-top:2%;'>
+	<img src='http://54.153.116.255/logo.jpg';     
         <p style='text-align: justify'>
          Hemos aprobado su reserva 
         </p>
@@ -97,12 +98,19 @@ function enviarCorreo($correoM,$usuario,$laboratorio,$horario,$materia,$fecha){
         <label style='font-weight: normal; margin-top:2%;'>Para la fecha: </label>
         <h4 style='color: #088A08;font-weight: bolder; margin:0; padding:0; '>$fecha</h4>
        </div>
+	<div style='margin-top:2%;'>
+        <label style='font-weight: normal; margin-top:2%;'>Con las siguientes Observaciones: </label>
+        <h4 style='color: #088A08;font-weight: bolder; margin:0; padding:0; '>$observaciones</h4>
+       </div>
        </div>
       </body>
      </html>");
   
-  $mail->AltBody="<br>$usuario<br>Del Laboratorio:<br>$laboratorio<br>Para la hora: $horario<br>Para la clase:<br>$materia<br>Para la fecha:<br>$fecha";
+     $mail->AltBody="<br>$usuario<br>Del Laboratorio:<br>$laboratorio<br>Para la hora: $horario<br>Para la clase:<br>$materia<br>Para la fecha:<br>$fecha<br>Con las siguientes Observaciones:<br>$observaciones";
 
+  $exito=$mail->Send();
+  $mail->ClearAddresses();
+  $mail->AddAddress("santiago.chisco@hotmail.com");
   $exito=$mail->Send();
   
  }

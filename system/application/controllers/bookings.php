@@ -596,6 +596,28 @@ class Bookings extends Controller {
 			$uri = $this->session->userdata('uri');
 			#if($data['date']){ $url = 'bookings/index/'.$data['date']; } else { $url = 'bookings'; }
 			$uri = ($uri) ? $uri : 'bookings';
+			//traer datos Usuario
+ 			$idUsuario=(int)$data['user_id'];
+ 			$sql = "SELECT username,email FROM users WHERE user_id='$idUsuario';";
+ 			$query = $this->db->query($sql);
+ 			$row = $query->row();
+ 			$idUsuario=$row->username;
+ 			$correo=$row->email;
+ 			//Traer datos Laboratorio
+ 			$idLaboratorio=(int)$data['room_id'];
+ 			$sql = "SELECT name FROM rooms WHERE room_id='$idLaboratorio';";
+ 			$query = $this->db->query($sql);
+ 			$row = $query->row();
+ 			$idLaboratorio=$row->name;
+ 
+ 			//Traer datos horario
+ 			$idHorario=(int)$data['period_id'];
+ 			$sql = "SELECT time_start FROM periods WHERE period_id='$idHorario';";
+ 			$query = $this->db->query($sql);
+ 			$row = $query->row();
+ 			$idHorario=$row->time_start; 
+ 			$observaciones = $this->input->post('observaciones');
+ 			$this->userauth->enviar($correo,$idUsuario,$idLaboratorio,$idHorario,$data['notes'],$data['date'],$observaciones);
 			redirect($uri, 'location');
 			#echo anchor($uri, 'OK');
 

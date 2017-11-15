@@ -31,6 +31,21 @@ $t = 1;
 	?>
 </p>
 
+<p>
+	<label>Observations:</label>
+  <?php
+	$observaciones = @field($this->validation->notes, $booking['observaciones']);
+	$input['name'] = 'observaciones';
+	$input['id'] = 'observaciones';
+	$input['size'] = '50';
+	$input['maxlength'] = '200';
+	$input['tabindex'] = $t;
+	$input['value'] = $observaciones;
+	echo form_input($input);
+	unset($input);
+	$t++;
+	?>
+</p>
 
 <?php if($this->userauth->CheckAuthLevel(ADMINISTRATOR, $this->authlevel)){ ?>
 <p>
