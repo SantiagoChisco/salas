@@ -446,6 +446,11 @@ class Userauth {
 		enviarCorreo($correo,$usuario,$laboratorio,$horario,$materia,$fecha,$observaciones);
 
 	}
+	function enviarCancelacion($correo,$usuario,$laboratorio,$horario,$materia,$fecha){
+		
+		enviarCancelacion($correo,$usuario,$laboratorio,$horario,$materia,$fecha);
+
+	}
 
 
 

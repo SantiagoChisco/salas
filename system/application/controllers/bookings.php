@@ -458,14 +458,47 @@ class Bookings extends Controller {
 	function cancel(){
 		$uri = $this->session->userdata('uri');
 		$booking_id = $this->uri->segment(3);
+		$sql = "SELECT user_id,room_id,date,notes,period_id FROM bookings WHERE booking_id='$booking_id';";
+		$query = $this->db->query($sql);
+		
+ 		$row = $query->row();
+ 		$idUsuario=$row->user_id;
+ 		$idLaboratorio=$row->room_id;
+ 		$idNotes=$row->notes;
+ 		$idHorario=$row->period_id;
+
+ 		$idDate=$row->date;
+ 		//echo $idUsuario;
+		//traer datos Usuario
+ 			$idUsuario=(int)$idUsuario;
+ 			$sql = "SELECT username,email FROM users WHERE user_id='$idUsuario';";
+ 			$query = $this->db->query($sql);
+ 			$row = $query->row();
+ 			$idUsuario=$row->username;
+ 			$correo=$row->email;
+ 			
+ 		//Traer datos Laboratorio
+ 			$idLaboratorio=(int)$idLaboratorio;
+ 			$sql = "SELECT name FROM rooms WHERE room_id='$idLaboratorio';";
+ 			$query = $this->db->query($sql);
+ 			$row = $query->row();
+ 			$idLaboratorio=$row->name;
+ 
+ 			//Traer datos horario
+ 			$idHorario=(int)$idHorario;
+ 			$sql = "SELECT time_start FROM periods WHERE period_id='$idHorario';";
+ 			$query = $this->db->query($sql);
+ 			$row = $query->row();
+ 			$idHorario=$row->time_start; 
 		if($this->M_bookings->Cancel($this->school_id, $booking_id)){
 			$msg = $this->load->view('msgbox/info', 'The booking has been <strong>cancelled</strong>.', True);
+			$this->userauth->enviarCancelacion($correo,$idUsuario,$idLaboratorio,$idHorario,$idDate);
 		} else {
 			$msg = $this->load->view('msgbox/error', 'An error occured cancelling the booking.', True);
 		}
 		$this->session->set_flashdata('saved', $msg);
 		if($uri == NULL){ $uri = 'bookings'; }
-		redirect($uri, 'redirect');
+		//redirect($uri, 'redirect');
 	}
 
 
